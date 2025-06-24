@@ -1,0 +1,141 @@
+<div class="contenedor-padre">
+  <!-- Formulario de nombre y raza -->
+  <div class="formulario" [formGroup]="fichaForm">
+  <label>
+    Nombre del jugador:
+    <input formControlName="jugador" />
+  </label>
+  <label>
+    Nombre del personaje:
+    <input formControlName="nombre" />
+  </label>
+  <label>
+    Raza:
+    <select formControlName="raza" (change)="onRazaChange($any($event.target).value)">
+      <option value="">--Selecciona--</option>
+      <option *ngFor="let r of razas" [value]="r">{{ r }}</option>
+      <option value="otra">Otra raza</option>
+    </select>
+  </label>
+  <label *ngIf="mostrarOtraRaza" class="input-extra">
+    Especifica otra raza:
+    <input formControlName="otraRaza" />
+  </label>
+  <label>
+    Clase:
+    <select formControlName="clase" (change)="onClaseChange($any($event.target).value)">
+      <option value="">--Selecciona--</option>
+      <option *ngFor="let c of clases" [value]="c">{{ c }}</option>
+      <option value="otra">Otra clase</option>
+    </select>
+  </label>
+  <label *ngIf="mostrarOtraClase" class="input-extra">
+    Especifica otra clase:
+    <input formControlName="otraClase" />
+  </label>
+  <label>
+    Nivel:
+    <input type="number" formControlName="nivel" min="1" />
+  </label>
+  <label>
+    Transfondo:
+    <input formControlName="transfondo" />
+  </label>
+  <!-- Campo Alineamiento 1 -->
+  <label>
+  Alineamiento:
+  <select formControlName="alineamiento1" id="alineamiento1">
+    <option value="">--Selecciona--</option>
+      <option value="Legal">Legal</option>
+      <option value="Neutral">Neutral</option>
+      <option value="Caótico">Caótico</option>
+  </select>
+</label>
+<label style="margin-top: auto;">
+    <select formControlName="alineamiento2" id="alineamiento2">
+      <option value="">--Selecciona--</option>
+    <option value="Bueno">Bueno</option>
+    <option value="Neutral">Neutral</option>
+    <option value="Malvado">Malvado</option>
+  </select>
+</label>
+
+  
+</div>
+
+
+  <!-- Botón lanzar dados con texto dinámico -->
+  <button
+  *ngIf="tiradasRealizadas < 2"
+  (click)="tirarDados()"
+  class="btn-dado"
+  [class.parpadea]="tiradasRealizadas === 0"
+  [attr.aria-label]="tiradasRealizadas === 0 ? 'Lanza Dados' : 'Vuelve a tirar'"
+>
+  <img src="/assets/dado.png" alt="Dado" />
+</button>
+
+  <!-- Mostrar tiradas -->
+  <div *ngIf="tiradas.length > 0" style="margin-top: 20px;">
+    <h4>Tiradas:</h4>
+    <div *ngFor="let tirada of tiradas; let i = index" class="fila-tiradas">
+      <div
+        (click)="activarFila(i)"
+        [style.cursor]="'pointer'"
+        [style.backgroundColor]="filaActivaIndex === i ? '#d0f0d0' : '#f0f0f0'"
+        style="display: flex; gap: 10px; margin-bottom: 10px; padding: 5px; border-radius: 5px; border: 1px solid #ccc;"
+      >
+        <span
+          *ngFor="let numero of tirada"
+          (click)="filaActivaIndex === i ? asignarValor(numero) : null; $event.stopPropagation()"
+          [style.cursor]="filaActivaIndex === i ? 'pointer' : 'default'"
+          [style.color]="filaActivaIndex === i ? '#000' : '#aaa'"
+          style="border: 1px solid #999; padding: 5px; border-radius: 4px; background: #eee;"
+        >
+          {{ numero }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mostrar campos no editables de la fila activa -->
+  <div class="atributos-grid" [formGroup]="camposForm" *ngIf="filaActivaIndex !== null">
+  <div *ngFor="let atributo of atributos; let i = index" class="atributo-item">
+    <label>
+      {{ atributo }}:
+      <input type="number" [formControlName]="'campo' + (i + 1)" readonly class="campos-tiradas"/>
+      <button *ngIf="asignaciones[filaActivaIndex][i] !== null" 
+              (click)="quitarAsignacion(i)" 
+              class="remove-btn">X</button>
+    </label>
+  </div>
+</div>
+  <!-- Rasgos de personalidad -->
+<div class="rasgos-container" [formGroup]="fichaForm">
+  <label>
+    Rasgos de personalidad:
+    <textarea formControlName="rasgos" rows="2"></textarea>
+  </label>
+  <label>
+    Ideales:
+    <textarea formControlName="ideales" rows="2"></textarea>
+  </label>
+  <label>
+    Vínculos:
+    <textarea formControlName="vinculos" rows="2"></textarea>
+  </label>
+  <label>
+    Defectos:
+    <textarea formControlName="defectos" rows="2"></textarea>
+  </label>
+</div>
+</div>
+<!-- Botones Finalizar y Volver -->
+<div class="contenedor-botones">
+  <button class="btn-circle btn-red" (click)="volver()" aria-label="Volver">
+    ←
+  </button>
+  <button class="btn-circle btn-green" (click)="finalizar()" aria-label="Finalizar">
+    📄
+  </button>
+</div>

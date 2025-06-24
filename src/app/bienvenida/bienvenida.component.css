@@ -1,0 +1,119 @@
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding-top: 2rem;
+  margin-bottom: 0.5rem;
+  background: none;
+  color: black;
+}
+
+.logo-banner {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.subtitulo {
+  margin-top: 0;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.carrusel-contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.flecha {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #3f51b5;
+}
+
+.flecha:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.juego-card {
+  width: 250px;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.3s;
+  background-color: #f9f9f9;
+}
+
+.juego-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.juego-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 1rem auto;
+  border: 2px solid #3f51b5;
+}
+
+
+.juego-card.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.carrusel-fichas {
+  margin-top: 0rem;
+}
+
+.ficha-preview {
+  width: 250px; /* igual que .juego-card */
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 0.5rem;
+  transition: transform 0.3s;
+}
+
+.ficha-preview:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.icono-doc {
+  font-size: 48px;
+}
+
+.acciones {
+  margin-top: 10px;
+}
+
+button {
+  margin: 0 5px;
+}
+
+.sin-fichas {
+  text-align: center;
+  font-style: italic;
+  color: #666;
+  margin-top: 2rem;
+}
+
+.titulo-fichas {
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 1.5rem;
+}

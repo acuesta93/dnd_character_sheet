@@ -1,0 +1,69 @@
+
+<div>
+  <div class="banner">
+    <img src="assets/logo-banner.png" alt="Logo" class="logo-banner" />
+    <h1>Creador de fichas</h1>
+  </div>
+
+  <div class="subtitulo">
+    <p>Seleccione el juego donde desea crear su personaje</p>
+  </div>
+
+  <div class="carrusel-contenedor">
+    <button class="flecha" (click)="anterior()" [disabled]="indiceJuego === 0">
+      ‹
+    </button>
+
+    <div
+      class="juego-card"
+      [class.disabled]="!juegos[indiceJuego].activo"
+      (click)="navegar(juegos[indiceJuego].ruta, juegos[indiceJuego].activo)"
+    >
+      <img [src]="juegos[indiceJuego].imagen" [alt]="juegos[indiceJuego].nombre" />
+      <h2>{{ juegos[indiceJuego].nombre }}</h2>
+    </div>
+
+    <button
+      class="flecha"
+      (click)="siguiente()"
+      [disabled]="indiceJuego === juegos.length - 1"
+    >
+      ›
+    </button>
+  </div>
+  
+  <!-- Carrusel de fichas guardadas -->
+<div *ngIf="fichasGuardadas.length > 0; else noFichas">
+  <h2 class="titulo-fichas">Fichas guardadas</h2>
+  <div class="carrusel-contenedor carrusel-fichas">
+    <button class="flecha" (click)="anteriorFicha()" [disabled]="indiceFicha === 0">‹</button>
+
+    <div class="juego-card ficha-preview">
+      <div class="icono-doc">📄</div>
+      <h3>{{ fichasGuardadas[indiceFicha].nombre }}</h3>
+
+      <div class="acciones">
+        <button (click)="editarFicha(fichasGuardadas[indiceFicha])">Editar</button>
+        <button (click)="verFicha(fichasGuardadas[indiceFicha])">Visualizar</button>
+        <button (click)="descargarFicha(fichasGuardadas[indiceFicha])">Descargar</button>
+        <button (click)="borrarFicha(fichasGuardadas[indiceFicha].id)">Borrar</button>
+      </div>
+    </div>
+
+    <button
+      class="flecha"
+      (click)="siguienteFicha()"
+      [disabled]="indiceFicha >= fichasGuardadas.length - 1"
+    >
+      ›
+    </button>
+  </div>
+</div>
+
+
+<ng-template #noFichas>
+  <p class="sin-fichas">No hay fichas guardadas aún.</p>
+</ng-template>
+
+
+</div>
